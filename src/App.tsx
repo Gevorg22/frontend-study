@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QuestionsProvider } from './context';
-import { Sidebar } from './components/Sidebar';
-import { Home } from './components/Home';
-import { CategoryPage } from './components/CategoryPage';
-import { QuestionDetailPage } from './components/QuestionDetailPage';
-import { SearchResults } from './components/SearchResults';
+import { Sidebar } from './components/Sidebar/Sidebar';
+import { Home } from './components/Home/Home';
+import { CategoryPage } from './components/CategoryPage/CategoryPage';
+import { QuestionDetailPage } from './components/QuestionDetail/QuestionDetailPage';
+import { SearchResults } from './components/Search/SearchResults';
 import './App.css';
 
 const basename = import.meta.env.DEV ? '/' : '/frontend-study/';
@@ -35,10 +35,7 @@ export default function App() {
       <BrowserRouter basename={basename}>
         <div className="app-layout">
           <div className={`sidebar-wrapper ${isSidebarOpen ? 'open' : ''}`}>
-            <Sidebar
-              onSearch={() => setIsSearchOpen(true)}
-              onClose={() => setIsSidebarOpen(false)}
-            />
+            <Sidebar onClose={() => setIsSidebarOpen(false)} />
           </div>
           {isSidebarOpen && (
             <div
