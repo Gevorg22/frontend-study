@@ -13,7 +13,8 @@ export const Home: React.FC = () => {
         <h1>Добро пожаловать в Q&A Hub</h1>
         <p>Полная шпаргалка для фронтенд разработчика</p>
         <p className="hero-stats">
-          {data.categories.length} категорий • {data.totalQuestions} вопросов {learnedCount > 0 && `• ✓ ${learnedCount} изучено`}
+          {data.categories.length} категорий • {data.totalQuestions} вопросов{' '}
+          {learnedCount > 0 && `• ✓ ${learnedCount} изучено`}
         </p>
       </div>
 

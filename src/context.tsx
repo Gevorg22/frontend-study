@@ -24,7 +24,9 @@ export const QuestionsProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const data = questionsData as QuestionsData;
-  const [learnedQuestions, setLearnedQuestions] = useState<Set<number>>(new Set());
+  const [learnedQuestions, setLearnedQuestions] = useState<Set<number>>(
+    new Set()
+  );
 
   // Загружаем из localStorage при монтировании
   useEffect(() => {

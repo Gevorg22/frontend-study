@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '/frontend-study/',
+  base: process.env.GITHUB_PAGES ? '/frontend-study/' : '/',
   plugins: [react()],
   server: { port: 5173 },
   build: {
@@ -15,4 +15,4 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 1000
   }
-});
+});;

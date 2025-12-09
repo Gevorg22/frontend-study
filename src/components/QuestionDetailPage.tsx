@@ -11,7 +11,13 @@ export const QuestionDetailPage: React.FC = () => {
   }>();
   const [showAnswer, setShowAnswer] = useState(true);
   const navigate = useNavigate();
-  const { getQuestion, getQuestionsInCategory, getCategory, toggleLearned, isLearned } = useQuestions();
+  const {
+    getQuestion,
+    getQuestionsInCategory,
+    getCategory,
+    toggleLearned,
+    isLearned,
+  } = useQuestions();
 
   if (!slug || !questionId) {
     return <div className="error">Вопрос не найден</div>;
@@ -56,9 +62,13 @@ export const QuestionDetailPage: React.FC = () => {
           <button
             className={`mark-learned-btn ${isLearned(question.id) ? 'active' : ''}`}
             onClick={() => toggleLearned(question.id)}
-            title={isLearned(question.id) ? "Отметить как неизученное" : "Отметить как изученное"}
+            title={
+              isLearned(question.id)
+                ? 'Отметить как неизученное'
+                : 'Отметить как изученное'
+            }
           >
-            {isLearned(question.id) ? "✓ Изучено" : "○ Отметить как изученное"}
+            {isLearned(question.id) ? '✓ Изучено' : '○ Отметить как изученное'}
           </button>
         </div>
 

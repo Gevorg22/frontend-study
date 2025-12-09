@@ -1,111 +1,156 @@
 # Развертывание на GitHub Pages
 
-## Предварительные требования
-
-1. GitHub аккаунт
-2. Репозиторий на GitHub с именем `frontend-study` (или другим)
-3. Git установлен и настроен локально
-
-## Шаг 1: Создайте репозиторий на GitHub
+## Шаг 1: Создание репозитория на GitHub
 
 1. Перейдите на https://github.com/new
-2. Назовите репозиторий `frontend-study`
-3. Нажмите "Create repository"
+2. Создайте репозиторий `frontend-study` (или другое название)
+3. Выберите **Public** (чтобы работал GitHub Pages)
 
-## Шаг 2: Инициализируйте Git и загрузите код
+## Шаг 2: Добавление удаленного репозитория
 
 ```bash
-# Инициализируйте репозиторий
-git init
-git add .
-git commit -m "Initial commit: Q&A Hub with learning tracker"
-
-# Добавьте удаленный репозиторий (замените на ваш URL)
-git remote add origin https://github.com/yourusername/frontend-study.git
-
-# Создайте ветку gh-pages
+git remote add origin https://github.com/YOUR_USERNAME/frontend-study.git
 git branch -M main
 git push -u origin main
 ```
 
-## Шаг 3: Обновите `package.json`
+Замените `YOUR_USERNAME` на ваше имя пользователя GitHub.
 
-Убедитесь, что в `package.json` установлено правильное значение `homepage`:
+## Шаг 3: Обновление конфигурации для GitHub Pages
 
+Вы можете разместить на:
+- **GitHub Pages (gh-pages веток)** - самый простой вариант
+- **GitHub Pages из папки `/dist`** - в веток main
+
+### Вариант A: Использование gh-pages ветки (рекомендуется)
+
+```bash
+# Установка пакета для развертывания
+npm install --save-dev gh-pages
+```
+
+Обновите `package.json`:
 ```json
-"homepage": "https://yourusername.github.io/frontend-study"
+{
+  "homepage": "https://YOUR_USERNAME.github.io/frontend-study",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && gh-pages -d dist"
+  }
+}
 ```
 
-Замените `yourusername` на ваше имя пользователя GitHub.
+Обновите `vite.config.ts`:
+```typescript
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-## Шаг 4: Разверните приложение
+export default defineConfig({
+  base: '/frontend-study/',
+  plugins: [react()],
+  server: { port: 5173 },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'questions-data': ['./src/questions-data.json']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000
+  }
+});
+```
 
-Запустите команду деплоя:
-
+Затем разверните:
 ```bash
 npm run deploy
 ```
 
-Это выполнит:
-1. `npm run build` - соберет оптимизированную версию
-2. `gh-pages -d dist` - загрузит содержимое папки `dist` на ветку `gh-pages`
+### Вариант B: Использование Actions (автоматическое развертывание)
 
-## Шаг 5: Включите GitHub Pages в настройках репозитория
+1. Создайте файл `.github/workflows/deploy.yml`:
 
-1. Перейдите в Settings вашего репозитория
-2. В левом меню нажмите "Pages"
-3. В разделе "Source" выберите ветку `gh-pages`
-4. Нажмите "Save"
+```yaml
+name: Deploy to GitHub Pages
 
-## Шаг 6: Дождитесь развертывания
+on:
+  push:
+    branches: [main]
 
-GitHub Pages должен развернуться за 1-2 минуты. Ваше приложение будет доступно по адресу:
-
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Build
+        run: npm run build
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          cname: OPTIONAL_CUSTOM_DOMAIN
 ```
-https://yourusername.github.io/frontend-study
-```
 
-## Развертывание обновлений
+2. В настройках репозитория (Settings → Pages):
+   - Выберите **Deploy from a branch**
+   - Branch: `gh-pages`
+   - Folder: `/ (root)`
 
-Каждый раз при внесении изменений просто запустите:
+## Шаг 4: Проверка развертывания
+
+После выполнения команды `npm run deploy` или push:
+1. Перейдите в Settings → Pages вашего репозитория
+2. Проверьте, что статус показывает "Your site is published at..."
+3. Откройте URL и проверьте приложение
+
+## Готовые команды
 
 ```bash
+# 1. Инициализация git (если еще не сделано)
+git init
+
+# 2. Добавление удаленного репозитория
+git remote add origin https://github.com/YOUR_USERNAME/frontend-study.git
+
+# 3. Первичный коммит и push
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git push -u origin main
+
+# 4. Установка gh-pages
+npm install --save-dev gh-pages
+
+# 5. Развертывание
 npm run deploy
 ```
 
-Git автоматически коммитит и загружает изменения на GitHub Pages.
+## Рекомендации
 
-## Отладка
+- **Вариант A (gh-pages)** - проще, если вы случайно не хотите отслеживать файлы `/dist`
+- **Вариант B (Actions)** - автоматический, более современный подход
+- **base: '/frontend-study/'** в vite.config.ts нужна только если репозиторий не является пользовательским (username.github.io)
 
-Если что-то не работает:
-
-1. Проверьте, что значение `base` в `vite.config.ts` соответствует пути репозитория:
-   ```typescript
-   base: '/frontend-study/',
-   ```
-
-2. Проверьте, что `homepage` в `package.json` правильный
-
-3. Убедитесь, что ветка `gh-pages` создана и загружена
-
-4. Проверьте статус развертывания в Settings → Pages вашего репозитория
-
-## Локальное тестирование перед деплоем
-
-Перед запуском `npm run deploy` можно локально проверить сборку:
-
-```bash
-npm run build
-npm run preview
-```
-
-Откройте http://localhost:4173 для предпросмотра.
+Если у вас есть домен, приведите CNAME файл в папку public/.
 
 ---
 
-**После развертывания ваше приложение будет полностью функционально с:**
-- ✅ Поиском по вопросам
-- ✅ Пагинацией (10 вопросов на страницу)
-- ✅ Отметкой изученных вопросов (сохранение в localStorage)
-- ✅ Мобильной версией
-- ✅ Русскими категориями
+**Статус приложения:**
+✅ Сборка: `npm run build` готова
+✅ Размер: оптимален для GitHub Pages (< 5 GB рекомендуется)
+✅ localStorage: будет работать на GitHub Pages
+✅ React Router: требует обработки 404 для SPA
