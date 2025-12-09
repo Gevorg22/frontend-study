@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Frontend Study</title>
     <script>
-      // Redirect from 404.html
+      // Handle redirect from 404.html
       (function() {
-        if (window.location.href.indexOf('?p=') !== -1) {
-          var redirectPath = window.location.href.split('?p=')[1];
-          window.history.replaceState(null, null, redirectPath);
+        var redirect = sessionStorage.getItem('redirect');
+        if (redirect) {
+          sessionStorage.removeItem('redirect');
+          window.history.replaceState(null, null, '/frontend-study' + redirect);
         }
       })();
     </script>

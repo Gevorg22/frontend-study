@@ -10,21 +10,17 @@
     />
     <title>Frontend Study</title>
     <script>
-      // SPA redirect for GitHub Pages
-      var pathSegmentsToKeep = 1;
-      var l = window.location;
-      l.replace(
-        l.protocol +
-          '//' +
-          l.hostname +
-          (l.port ? ':' + l.port : '') +
-          '/frontend-study/index.html?p=/' +
-          l.pathname
-            .split('/')
-            .slice(0, 1 + pathSegmentsToKeep)
-            .join('/') +
-          '/'
-      );
+      // SPA redirect for GitHub Pages with subdirectory
+      (function() {
+        var l = window.location;
+        var pathWithoutBase = l.pathname.replace('/frontend-study', '');
+        
+        if (pathWithoutBase !== '/' && !pathWithoutBase.includes('.')) {
+          // Store the path and redirect to index.html
+          sessionStorage.setItem('redirect', pathWithoutBase + l.search);
+          l.replace('/frontend-study/');
+        }
+      })();
     </script>
   </head>
   <body>

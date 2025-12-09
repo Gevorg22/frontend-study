@@ -8,6 +8,8 @@ import { QuestionDetailPage } from './components/QuestionDetailPage';
 import { SearchResults } from './components/SearchResults';
 import './App.css';
 
+const basename = import.meta.env.DEV ? '/' : '/frontend-study/';
+
 export default function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -30,7 +32,7 @@ export default function App() {
 
   return (
     <QuestionsProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <div className="app-layout">
           <div className={`sidebar-wrapper ${isSidebarOpen ? 'open' : ''}`}>
             <Sidebar
