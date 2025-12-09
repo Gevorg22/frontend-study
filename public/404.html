@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Frontend Study - 1283 вопросов и ответов по JavaScript, React, TypeScript и другим темам"
+    />
+    <title>Frontend Study</title>
+    <script>
+      // SPA redirect for GitHub Pages
+      var pathSegmentsToKeep = 1;
+      var l = window.location;
+      l.replace(
+        l.protocol +
+          '//' +
+          l.hostname +
+          (l.port ? ':' + l.port : '') +
+          '/frontend-study/index.html?p=/' +
+          l.pathname
+            .split('/')
+            .slice(0, 1 + pathSegmentsToKeep)
+            .join('/') +
+          '/'
+      );
+    </script>
+  </head>
+  <body>
+    Redirecting...
+  </body>
+</html>
