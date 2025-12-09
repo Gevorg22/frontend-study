@@ -59,25 +59,6 @@ export const QuestionDetailPage: React.FC = () => {
       <div className="detail-container">
         <div className="detail-header">
           <h1 className="detail-title">{question.title}</h1>
-          <button
-            className={`mark-learned-btn ${isLearned_ ? 'active' : ''}`}
-            onClick={() => toggleLearned(question.id)}
-            title={
-              isLearned_
-                ? 'Отметить как неизученное'
-                : 'Отметить как изученное'
-            }
-          >
-            {isLearned_ ? (
-              <>
-                <CheckCircleOutlined /> Изучено
-              </>
-            ) : (
-              <>
-                <span className="circle-icon">○</span> Отметить как изученное
-              </>
-            )}
-          </button>
         </div>
 
         <div className="answer-section">
@@ -85,6 +66,26 @@ export const QuestionDetailPage: React.FC = () => {
             <MarkdownRenderer content={question.answer} />
           </div>
         </div>
+
+        <button
+          className={`mark-learned-btn ${isLearned_ ? 'active' : ''}`}
+          onClick={() => toggleLearned(question.id)}
+          title={
+            isLearned_
+              ? 'Отметить как неизученное'
+              : 'Отметить как изученное'
+          }
+        >
+          {isLearned_ ? (
+            <>
+              <CheckCircleOutlined /> Изучено
+            </>
+          ) : (
+            <>
+              <span className="circle-icon">○</span> Отметить как изученное
+            </>
+          )}
+        </button>
 
         <div className="navigation">
           {previousQuestion ? (
