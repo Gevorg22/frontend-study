@@ -13,14 +13,9 @@ export const CategoryPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  if (!slug) {
-    return <div className="error">Категория не найдена</div>;
-  }
-
-  const category = getCategory(slug);
+  const category = getCategory(slug || '');
   const allQuestions = getQuestionsInCategory(category?.id || 0);
 
-  // Фильтруем вопросы по поисковому запросу
   const filteredQuestions = useMemo(() => {
     let questions = allQuestions;
 
@@ -33,7 +28,6 @@ export const CategoryPage: React.FC = () => {
       );
     }
 
-    // Сортируем: неизученные вначале, изученные в конец
     return questions.sort((a, b) => {
       const aLearned = isLearned(a.id) ? 1 : 0;
       const bLearned = isLearned(b.id) ? 1 : 0;
@@ -41,19 +35,16 @@ export const CategoryPage: React.FC = () => {
     });
   }, [allQuestions, searchQuery, isLearned]);
 
-  // Вычисляем пагинацию
-  const totalPages = Math.ceil(filteredQuestions.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedQuestions = filteredQuestions.slice(startIndex, endIndex);
 
-  // Сбрасываем страницу при поиске
   const handleSearch = (value: string) => {
     setSearchQuery(value);
     setCurrentPage(1);
   };
 
-  if (!category) {
+  if (!slug || !category) {
     return (
       <div className="error-container">
         <h2>Категория не найдена</h2>

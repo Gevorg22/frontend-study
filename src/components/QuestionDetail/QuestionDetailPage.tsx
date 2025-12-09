@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuestions } from '../../context';
-import { CheckCircleOutlined, CircleOutlined, ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import MarkdownRenderer from './MarkdownRenderer';
 import './QuestionDetailPage.css';
 
@@ -74,7 +74,7 @@ export const QuestionDetailPage: React.FC = () => {
               </>
             ) : (
               <>
-                <CircleOutlined /> Отметить как изученное
+                <span className="circle-icon">○</span> Отметить как изученное
               </>
             )}
           </button>

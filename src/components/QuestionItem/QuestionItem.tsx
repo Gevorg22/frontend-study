@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useQuestions } from '../../context';
 import type { Question } from '../../types';
-import { CheckCircleOutlined, CircleOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import './QuestionItem.css';
 
 interface QuestionItemProps {
@@ -45,7 +45,7 @@ export const QuestionItem: React.FC<QuestionItemProps> = ({ question }) => {
           {learned ? (
             <CheckCircleOutlined />
           ) : (
-            <CircleOutlined />
+            <span className="circle-icon">○</span>
           )}
         </button>
         <div className="question-arrow">

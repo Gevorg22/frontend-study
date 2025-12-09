@@ -28,20 +28,18 @@ export const QuestionsProvider: React.FC<{ children: React.ReactNode }> = ({
     new Set()
   );
 
-  // Загружаем из localStorage при монтировании
   useEffect(() => {
     const stored = localStorage.getItem(LEARNED_STORAGE_KEY);
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
         setLearnedQuestions(new Set(parsed));
-      } catch (e) {
-        console.error('Failed to parse learned questions:', e);
+      } catch {
+        // Silently ignore parse errors
       }
     }
   }, []);
 
-  // Сохраняем в localStorage при изменении
   useEffect(() => {
     localStorage.setItem(
       LEARNED_STORAGE_KEY,
