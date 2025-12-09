@@ -121,7 +121,8 @@ export const CategoryPage: React.FC = () => {
             }}
           />
           <div className="pagination-info">
-            Показано {startIndex + 1}-{Math.min(endIndex, filteredQuestions.length)} из{' '}
+            Показано {startIndex + 1}-
+            {Math.min(endIndex, filteredQuestions.length)} из{' '}
             {filteredQuestions.length}
           </div>
         </div>

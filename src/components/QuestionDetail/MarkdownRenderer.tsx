@@ -1,8 +1,5 @@
 import React from "react";
 
-/**
- * Простой рендерер маркдауна для форматированных ответов
- */
 export const MarkdownRenderer = ({ content }) => {
   if (!content) return null;
 
@@ -14,7 +11,6 @@ export const MarkdownRenderer = ({ content }) => {
   while (i < lines.length) {
     const line = lines[i];
 
-    // Обрабатываем заголовки уровня 2
     if (line.startsWith("## ")) {
       const title = line.replace(/^## /, "").trim();
       elements.push(
@@ -26,10 +22,9 @@ export const MarkdownRenderer = ({ content }) => {
       continue;
     }
 
-    // Обрабатываем блоки кода
     if (line.trim().startsWith("```")) {
       const codeLines: string[] = [];
-      i++; // Пропускаем открывающий ```
+      i++;
       
       while (i < lines.length && !lines[i].trim().startsWith("```")) {
         codeLines.push(lines[i]);
@@ -37,7 +32,7 @@ export const MarkdownRenderer = ({ content }) => {
       }
       
       if (i < lines.length) {
-        i++; // Пропускаем закрывающий ```
+        i++;
       }
 
       elements.push(
@@ -48,13 +43,11 @@ export const MarkdownRenderer = ({ content }) => {
       continue;
     }
 
-    // Пропускаем пустые строки
     if (line.trim() === "") {
       i++;
       continue;
     }
 
-    // Обычный текст как абзац
     if (line.trim()) {
       elements.push(
         <p key={elementKey++} className="answer-paragraph">
@@ -68,7 +61,6 @@ export const MarkdownRenderer = ({ content }) => {
     i++;
   }
 
-  // Если остался незавершенный блок кода
   if (elements.length === 0) {
     return (
       <div className="markdown-content">

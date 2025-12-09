@@ -1,7 +1,11 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuestions } from '../../context';
-import { CheckCircleOutlined, ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import {
+  CheckCircleOutlined,
+  ArrowLeftOutlined,
+  ArrowRightOutlined,
+} from '@ant-design/icons';
 import MarkdownRenderer from './MarkdownRenderer';
 import './QuestionDetailPage.css';
 
@@ -71,9 +75,7 @@ export const QuestionDetailPage: React.FC = () => {
           className={`mark-learned-btn ${isLearned_ ? 'active' : ''}`}
           onClick={() => toggleLearned(question.id)}
           title={
-            isLearned_
-              ? 'Отметить как неизученное'
-              : 'Отметить как изученное'
+            isLearned_ ? 'Отметить как неизученное' : 'Отметить как изученное'
           }
         >
           {isLearned_ ? (
@@ -93,12 +95,16 @@ export const QuestionDetailPage: React.FC = () => {
               to={`/category/${slug}/question/${previousQuestion.id}`}
               className="nav-button prev"
             >
-              <span><ArrowLeftOutlined /> Предыдущий</span>
+              <span>
+                <ArrowLeftOutlined /> Предыдущий
+              </span>
               <span className="nav-title">{previousQuestion.title}</span>
             </Link>
           ) : (
             <div className="nav-button disabled">
-              <span><ArrowLeftOutlined /> Предыдущий</span>
+              <span>
+                <ArrowLeftOutlined /> Предыдущий
+              </span>
             </div>
           )}
 
@@ -121,12 +127,16 @@ export const QuestionDetailPage: React.FC = () => {
               to={`/category/${slug}/question/${nextQuestion.id}`}
               className="nav-button next"
             >
-              <span>Следующий <ArrowRightOutlined /></span>
+              <span>
+                Следующий <ArrowRightOutlined />
+              </span>
               <span className="nav-title">{nextQuestion.title}</span>
             </Link>
           ) : (
             <div className="nav-button disabled">
-              <span>Следующий <ArrowRightOutlined /></span>
+              <span>
+                Следующий <ArrowRightOutlined />
+              </span>
             </div>
           )}
         </div>
