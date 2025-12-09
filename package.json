@@ -9,7 +9,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "start": "vite",
-    "deploy": "GITHUB_PAGES=true npm run build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "antd": "^6.1.0",
