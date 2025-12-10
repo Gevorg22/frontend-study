@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frontend Study</title>
+    <script>
+      // Handle redirect from 404.html
+      (function() {
+        var redirect = sessionStorage.getItem('redirect');
+        if (redirect) {
+          sessionStorage.removeItem('redirect');
+          window.history.replaceState(null, null, '/frontend-study' + redirect);
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/frontend-study/assets/index-DLsKZ81q.js"></script>
+    <link rel="modulepreload" crossorigin href="/frontend-study/assets/questions-data-DtOu0BmN.js">
+    <link rel="stylesheet" crossorigin href="/frontend-study/assets/index-DKb04Wm3.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

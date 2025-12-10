@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Frontend Study - 1283 вопросов и ответов по JavaScript, React, TypeScript и другим темам"
+    />
+    <title>Frontend Study</title>
+    <script>
+      // SPA redirect for GitHub Pages with subdirectory
+      (function() {
+        var l = window.location;
+        var pathWithoutBase = l.pathname.replace('/frontend-study', '');
+        
+        if (pathWithoutBase !== '/' && !pathWithoutBase.includes('.')) {
+          // Store the path and redirect to index.html
+          sessionStorage.setItem('redirect', pathWithoutBase + l.search);
+          l.replace('/frontend-study/');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    Redirecting...
+  </body>
+</html>
